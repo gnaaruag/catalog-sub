@@ -101,13 +101,13 @@ fs.readFile('test1.json', 'utf8', (err, data) => {
     try {
         const jsonDocument = JSON.parse(data);
         const secret  = processJson(jsonDocument);
-        const imp = findWrongPoints(jsonDocument);
-		if (!imp) {
-			console.log("no wrong points")
-		}
-		else {
-			console.log("the wrong points are:", imp);
-		}
+        // const imp = findWrongPoints(jsonDocument);
+		// if (!imp) {
+		// 	console.log("no wrong points")
+		// }
+		// else {
+		// 	console.log("the wrong points are:", imp);
+		// }
         console.log("The secret is:", secret);
     } catch (parseError) {
         console.error('Error parsing JSON:', parseError);
