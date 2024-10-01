@@ -22,13 +22,14 @@ function lagrangeInterpolation(xValues, yValues, x) {
     return total;
 }
 
+// secret compute wrapper
 function findSecret(xValues, yValues, k) {
     let xSubset = xValues.slice(0, k);
     let ySubset = yValues.slice(0, k);
     return lagrangeInterpolation(xSubset, ySubset, 0); // Evaluate at x = 0 for the constant term
 }
 
-
+// file parse
 function processJson(jsonInput) {
     let xValues = [];
     let yValues = [];
@@ -48,6 +49,7 @@ function processJson(jsonInput) {
     return secret ;
 }
 
+// wrong points
 function findWrongPoints(jsonInput) {
     let xValues = [];
     let yValues = [];
@@ -93,6 +95,7 @@ function findWrongPoints(jsonInput) {
 }
 
 
+// driver to run cases
 fs.readFile('test1.json', 'utf8', (err, data) => {
     if (err) {
         console.error('Error reading the file:', err);
