@@ -54,6 +54,7 @@ function findWrongPoints(jsonInput) {
     let xValues = [];
     let yValues = [];
 	const fin = []
+	const points = []
 
     for (let key in jsonInput) {
         if (key !== 'keys') {
@@ -81,16 +82,17 @@ function findWrongPoints(jsonInput) {
         if (Math.abs(parseInt(actualY) - parseInt(expectedY)) > tolerance) {
             wrong = {
                 x: xValues[i],
-                actualY: actualY,
-                expectedY: expectedY
+                actual_y: actualY,
+                expected_y: expectedY
             };
 			fin.push(wrong)
+			points.push(xValues[i])
         } else {
             // console.log(`Point (x=${xValues[i]}, expected=${expectedY}, actual=${actualY}) is correct.`);
         }
     }
 
-    return fin;
+    return points;
 }
 
 
@@ -106,6 +108,8 @@ fs.readFile('test1.json', 'utf8', (err, data) => {
         const jsonDocument = JSON.parse(data);
         const secret  = processJson(jsonDocument);
         console.log("The secret is:", secret);
+		const imp = findWrongPoints(jsonDocument);
+		console.log("the wrong points are:", imp);
     } catch (parseError) {
         console.error('Error parsing JSON:', parseError);
     }
@@ -123,13 +127,26 @@ fs.readFile('test2.json', 'utf8', (err, data) => {
         const jsonDocument = JSON.parse(data);
         const secret  = processJson(jsonDocument);
         const imp = findWrongPoints(jsonDocument);
-		// if (!imp) {
-		// 	console.log("no wrong points")
-		// }
-		// else {
-		// 	console.log("the wrong points are:", imp);
-		// }
+		console.log("the wrong points are:", imp);
         console.log("The secret is:", secret);
+    } catch (parseError) {
+        console.error('Error parsing JSON:', parseError);
+    }
+});
+
+fs.readFile('test3.json', 'utf8', (err, data) => {
+	console.log("test3")
+    if (err) {
+        console.error('Error reading the file:', err);
+        return;
+    }
+
+    try {
+        const jsonDocument = JSON.parse(data);
+        const imp = findWrongPoints(jsonDocument);
+        const secret  = processJson(jsonDocument);
+        console.log("The secret is:", secret);
+		console.log("the wrong points are:", imp);
     } catch (parseError) {
         console.error('Error parsing JSON:', parseError);
     }
