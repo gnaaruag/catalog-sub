@@ -69,9 +69,8 @@ function findWrongPoints(jsonInput) {
     // Define the polynomial using the first k points
     let polynomial = (x) => lagrangeInterpolation(xSubset, ySubset, x);
 
-    // Identify the single wrong point
     let wrong = null;
-    const tolerance = 1e-6; // Small tolerance for floating-point comparison
+    const tolerance = 1e-6; // room for error in float
 
     for (let i = 0; i < xValues.length; i++) {
         let actualY = yValues[i];
