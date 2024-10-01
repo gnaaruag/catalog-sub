@@ -96,6 +96,7 @@ function findWrongPoints(jsonInput) {
 
 // driver to run cases
 fs.readFile('test1.json', 'utf8', (err, data) => {
+	console.log("test1")
     if (err) {
         console.error('Error reading the file:', err);
         return;
@@ -122,12 +123,12 @@ fs.readFile('test2.json', 'utf8', (err, data) => {
         const jsonDocument = JSON.parse(data);
         const secret  = processJson(jsonDocument);
         const imp = findWrongPoints(jsonDocument);
-		if (!imp) {
-			console.log("no wrong points")
-		}
-		else {
-			console.log("the wrong points are:", imp);
-		}
+		// if (!imp) {
+		// 	console.log("no wrong points")
+		// }
+		// else {
+		// 	console.log("the wrong points are:", imp);
+		// }
         console.log("The secret is:", secret);
     } catch (parseError) {
         console.error('Error parsing JSON:', parseError);
