@@ -51,6 +51,7 @@ function processJson(jsonInput) {
 function findWrongPoints(jsonInput) {
     let xValues = [];
     let yValues = [];
+	const fin = []
 
     for (let key in jsonInput) {
         if (key !== 'keys') {
@@ -68,27 +69,27 @@ function findWrongPoints(jsonInput) {
     // Define the polynomial using the first k points
     let polynomial = (x) => lagrangeInterpolation(xSubset, ySubset, x);
 
-    // Identify the single imposter point
-    let imposter = null;
+    // Identify the single wrong point
+    let wrong = null;
     const tolerance = 1e-6; // Small tolerance for floating-point comparison
 
     for (let i = 0; i < xValues.length; i++) {
         let actualY = yValues[i];
         let expectedY = polynomial(xValues[i]);
 
-        if (Math.abs(actualY - expectedY) > tolerance) {
-            imposter = {
+        if (Math.abs(parseInt(actualY) - parseInt(expectedY)) > tolerance) {
+            wrong = {
                 x: xValues[i],
                 actualY: actualY,
                 expectedY: expectedY
             };
-            break; // Stop searching once the imposter is found
+			fin.push(wrong)
         } else {
             // console.log(`Point (x=${xValues[i]}, expected=${expectedY}, actual=${actualY}) is correct.`);
         }
     }
 
-    return imposter;
+    return fin;
 }
 
 
